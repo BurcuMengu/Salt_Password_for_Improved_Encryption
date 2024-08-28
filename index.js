@@ -2,20 +2,19 @@ import express from "express";
 import bodyParser from "body-parser";
 import pg from "pg";
 import bcrypt from "bcrypt";
-import dotenv from "dotenv";
-dotenv.config();
+import env from "dotenv";
+env.config();
 
 const app = express();
 const port = 3000;
-const db_password = process.env.DB_PASSWORD;
 const saltRounds = 10;
 
 const db = new pg.Client({
-  user: "postgres",
-  host: "localhost",
-  database: "secrets",
-  password: db_password,
-  port: 5432,
+  user: process.env.PG_USER,
+  host: process.env.PG_HOST,
+  database: process.env.PG_DATABASE,
+  password: process.env.DB_PASSWORD,
+  port: process.env.PG_PORT,
 });
 db.connect();
 
